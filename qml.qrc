@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>UI/Assets/toggle_ooff.png</file>
+        <file>UI/Assets/toggle_on.png</file>
+        <file>UI/Assets/shopping-list.png</file>
+        <file>UI/Assets/settings.png</file>
+        <file>UI/home_screen/home_screen.qml</file>
+        <file>UI/Assets/edit_icon.png</file>
+    </qresource>
+</RCC>
