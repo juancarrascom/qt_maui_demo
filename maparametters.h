@@ -146,8 +146,8 @@ public:
     int temperatureDegrees() const;
     void setTemperatureDegrees(int newTemperatureDegrees);
 
-    int phasemv() const;
-    void setPhasemv(int newPhasemv);
+    Q_INVOKABLE int phasemv() const;
+    Q_INVOKABLE void setPhasemv(int newPhasemv);
 
     int phaseDegrees() const;
     void setPhaseDegrees(int newPhaseDegrees);
@@ -222,7 +222,7 @@ private:
     QString m_sensorBoardName;
     GroupDateSoftware *m_dateSoftware;
     GroupSensorCommParametters *m_sensorCommParametters;
-    GroupSensorValues *m_sensorValues;
+    GroupSensorValues *m_sensorValues = new GroupSensorValues;
 };
 
 #endif // MAPARAMETTERS_H

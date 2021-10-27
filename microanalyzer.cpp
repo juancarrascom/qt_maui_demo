@@ -8,11 +8,11 @@ microAnalyzer::microAnalyzer(QObject *parent) : QObject(parent)
 
 void microAnalyzer::readData()
 {
-    QString portName = "/dev/ttySTM2";
-    modbus *m_master=new modbus();
-    m_master->initModbusSerialMaster(portName,QSerialPort::Baud115200,QSerialPort::Data8,QSerialPort::NoParity,QSerialPort::OneStop);
-    m_master->connectDevice();
 
+//    QString portName = "/dev/ttySTM2";
+//    modbus *m_master=new modbus();
+//    m_master->initModbusSerialMaster(portName,QSerialPort::Baud115200,QSerialPort::Data8,QSerialPort::NoParity,QSerialPort::OneStop);
+//    m_master->connectDevice();
     m_master->readRegisterData(0,16,1);
 //    QObject::connect(m_master,SIGNAL(readData_signal(int,int)),this,SLOT(getData(int,int)));
     m_master->readRegisterData(55,9,1);
@@ -21,17 +21,21 @@ void microAnalyzer::readData()
     connect(m_master,SIGNAL(readData_signal(int,int)),this,SLOT(getData(int,int)));
 }
 
+void microAnalyzer::connectSensor()
+{
+
+    QString portName = "/dev/ttySTM2";
+
+    m_master->initModbusSerialMaster(portName,QSerialPort::Baud115200,QSerialPort::Data8,QSerialPort::NoParity,QSerialPort::OneStop);
+    m_master->connectDevice();
+}
+
+
+
 void microAnalyzer::getData(int address, int value)
 {
-    maParametters map;
-    GroupSerialNumber gsm;
-    QByteArray SensorBoardName;
-    SensorBoardName.resize(13);
-    GroupDateSoftware gds;
-    QDate SensorSoftDate;
-    GroupSensorCommParametters gscp;
-    GroupSensorValues gsv;
 
+    SensorBoardName.resize(13);
     int aux_1=0;
     int aux_2=0;
 
@@ -107,8 +111,8 @@ void microAnalyzer::getData(int address, int value)
         break;
 
     case 150:
-        gsv.setTemperaturemv(value);
-        qDebug()<<"Temperature(mV): "<<gsv.temperaturemv();
+        map.sensorValues()->setTemperaturemv(value);
+        qDebug()<<"Temperature(mV): "<<map.sensorValues()->temperaturemv();
         break;
     case 151:
         gsv.setTemperatureDegrees(value);

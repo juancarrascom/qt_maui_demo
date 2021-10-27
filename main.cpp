@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QDebug>
 
 #include "microanalyzer.h"
 #include "maparametters.h"
@@ -14,14 +16,22 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+//    microAnalyzer *microshit = new microAnalyzer();
+//    maParametters *paramshit = new maParametters();
+//    GroupSensorValues *valshit = new GroupSensorValues();
 
 
-    microAnalyzer* m_device = new microAnalyzer();
-    m_device->readData();
+    qmlRegisterType< GroupSensorValues >   ("MicroAnalyzer_Values",1,0,"MaControl_Values");
+    qmlRegisterType< microAnalyzer >   ("MicroAnalyzer_Object",1,0,"MaControl_Object");
+    qmlRegisterType< maParametters >   ("MicroAnalyzer",1,0,"MaControl");
 
-    qmlRegisterType< GroupSensorValues >   ("MicroAnalyzer",1,0,"MaControl");
 
     QQmlApplicationEngine engine;
+
+//    engine.rootContext()->setContextProperty("microshit",microshit);
+//    engine.rootContext()->setContextProperty("paramshit",paramshit);
+//    engine.rootContext()->setContextProperty("valshit",valshit);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

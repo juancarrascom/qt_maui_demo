@@ -1,8 +1,11 @@
 #include "maparametters.h"
+#include <QDebug>
 
-maParametters::maParametters(QObject *parent) : QObject(parent)
+maParametters::maParametters(QObject *parent)
+    : QObject(parent)
+    , m_sensorValues(new GroupSensorValues())
 {
-
+    m_sensorValues->setTemperaturemv(10);
 }
 
 GroupSerialNumber *maParametters::serialNumber() const

@@ -34,7 +34,15 @@ bool modbus::initModbusSerialMaster(QString portName, qint32 baudRate, QSerialPo
 
 bool modbus::connectDevice()
 {
-    return m_master->connectDevice();
+    if(m_master->connectDevice())
+    {
+        qDebug()<<"Succesful Connection :)";
+        return 1;
+    }
+    else {
+        qDebug()<<"Unsuccessful Connection :(";
+        return 0;
+    }
 }
 
 void modbus::readRegisterData(quint16 startAddress, quint16 num, quint16 slaveAddress)

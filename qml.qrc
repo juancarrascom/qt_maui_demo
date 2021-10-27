@@ -7,5 +7,7 @@
         <file>UI/Assets/settings.png</file>
         <file>UI/home_screen/home_screen.qml</file>
         <file>UI/Assets/edit_icon.png</file>
+        <file>../../Documents/Icons/link.png</file>
+        <file>UI/Assets/link.png</file>
     </qresource>
 </RCC>

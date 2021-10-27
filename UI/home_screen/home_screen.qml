@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import MicroAnalyzer 1.0
 
 Item {
     Rectangle {
@@ -10,7 +11,7 @@ Item {
 
     Rectangle {
         height : 88
-        width: 1440
+        width: mainBackground.width
         id: top_rect
         anchors.top: mainBackground.top
         color: "#102027"
@@ -64,11 +65,29 @@ Item {
 
     Rectangle {
         height: 88
-        width: 1440
+        width: mainBackground.width
         id: title_rect
         anchors.top: top_rect.bottom
         color: "#37474F"
     }
+
+    Image {
+        id: connect_icon
+        anchors {
+            top: top_rect.bottom
+            right: title_rect.right
+            topMargin: 20
+            rightMargin: 30
+        }
+        width: 48
+        height: 48
+        source: "qrc:/UI/Assets/link.png"
+        MouseArea {
+            anchors.fill: parent
+            onClicked: maControl_Object.connectSensor()
+        }
+    }
+
     Text {
         id: device_title
         anchors {
@@ -89,6 +108,14 @@ Item {
         anchors.left: mainBackground.left
         anchors.top: title_rect.bottom
         color: "#62717B"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                maControl_Object.readData()
+            }
+        }
+
     }
 
     Text {
@@ -102,7 +129,7 @@ Item {
         font.pixelSize: 25
         font.bold: true
         color: "white"
-        text: "SENSOR PARAMETTERS"
+        text: "SENSOR'S PARAMETERS"
     }
 
     Text {
@@ -132,8 +159,9 @@ Item {
         font.pixelSize: 15
         font.bold: true
         color: "white"
-        text: maControl.temperaturemv
+        text: maControl.sensorValues.temperaturemv
     }
+
 
     Text {
         id: temperature_degrees
@@ -162,7 +190,7 @@ Item {
         font.pixelSize: 15
         font.bold: true
         color: "white"
-        text: maControl.temperatureDegrees
+        text: maControl.sensorValues.temperatureDegrees
     }
     Text {
         id: phase_mv
@@ -191,7 +219,8 @@ Item {
         font.pixelSize: 15
         font.bold: true
         color: "white"
-        text: maControl.phasemv
+        text: maControl.sensorValues.phasemv
+
     }
     Text {
         id: phase_degrees
@@ -220,8 +249,9 @@ Item {
         font.pixelSize: 15
         font.bold: true
         color: "white"
-        text: maControl.phaseDegrees
+        text: maControl.sensorValues.phaseDegrees
     }
+
     Text {
         id: attenuation_mv
         anchors {
@@ -249,7 +279,7 @@ Item {
         font.pixelSize: 15
         font.bold: true
         color: "white"
-        text: maControl.attenuationmv
+        text: maControl.sensorValues.attenuationmv
     }
     Text {
         id: attenuation_db
@@ -278,7 +308,13 @@ Item {
         font.pixelSize: 15
         font.bold: true
         color: "white"
-        text: maControl.attenuationdb
+        text: maControl.sensorValues.attenuationdb
+    }
+
+    MaControl {
+        sensorValues.onPhasemvChanged: {
+            console.log("Estaaaa ha cmabiado")
+        }
     }
 
 }

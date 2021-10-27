@@ -15,7 +15,8 @@ class microAnalyzer : public QObject
 public:
     explicit microAnalyzer(QObject *parent = nullptr);
 
-    void readData();
+    Q_INVOKABLE void readData();
+    Q_INVOKABLE void connectSensor();
 
 signals:
 
@@ -25,8 +26,16 @@ public slots:
 
 private:
 
-   modbus* m_device;
-   QModbusClient* m_master;
+   modbus *m_master=new modbus();
+   maParametters map;
+   GroupSerialNumber gsm;
+   QByteArray SensorBoardName;
+   GroupDateSoftware gds;
+   QDate SensorSoftDate;
+   GroupSensorCommParametters gscp;
+   GroupSensorValues gsv;
+
+//   QModbusClient* m_master;
 
 
 };
